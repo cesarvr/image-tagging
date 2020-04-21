@@ -16,7 +16,7 @@ def JNLP = 'jnlp'
 
 podTemplate(cloud:'openshift', 
     label: BUILD_TAG, 
-    serviceAccount: 'jenkins'
+    serviceAccount: 'jenkins',
     containers: [
         containerTemplate(
             name: JNLP, 
