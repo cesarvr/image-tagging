@@ -24,11 +24,11 @@ podTemplate(cloud:'openshift',
     node(BUILD_TAG) {
         container(JNLP) {
             stage('Tagging Image') {
-                sh  "echo ${SRC_PROJECT}"
-                sh  "echo ${IMAGE}"
-                sh  "echo ${SRC_TAG}"
-                sh  "echo ${DEST_PROJECT}"  
-                sh  "echo ${DEST_TAG}"  
+                echo  "-> ${SRC_PROJECT}"
+                echo  "-> ${IMAGE}"
+                echo  "-> ${SRC_TAG}"
+                echo  "-> ${DEST_PROJECT}"  
+                echo  "-> ${DEST_TAG}"  
                 
          
             }
