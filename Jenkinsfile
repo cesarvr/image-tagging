@@ -23,13 +23,12 @@ podTemplate(cloud:'openshift',
     node(BUILD_TAG) {
         container(JNLP) {
             stage('Tagging Image') {
-                echo "tagging: ${FULL_IMAGE_NAME}" 
                 sh "oc tag ${FULL_IMAGE_NAME} ${TAGGED_IMAGE}"
             }
 
             stage('Deploying Image') {
-                echo "deploying: ${FULL_IMAGE_NAME} on ${DEST_PROJECT}"
-                sh "oc project ${DEST_PROJECT}"
+                echo "deploying: ${FULL_IMAGE_NAME} on ${DEST_PROJECT}" 
+                sh "o   c project ${DEST_PROJECT}"
                 sh "chmod +x build.sh"
                 sh "./build.sh ${IMAGE}"
             }
