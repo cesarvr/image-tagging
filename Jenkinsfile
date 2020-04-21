@@ -29,7 +29,7 @@ podTemplate(cloud:'openshift',
                 sh "oc project ${DEST_PROJECT}"
                 sh "curl -s ${BUILD_SCRIPT} | bash /dev/stdin ${IMAGE}" 
 
-                sh "oc rollout latest dc/frontend" 
+                sh "oc rollout latest dc/${IMAGE}" 
             }
             /* More stages */
         }
