@@ -39,7 +39,7 @@ podTemplate(cloud:'openshift',
             stage('Deploying Image') {
                 echo " Deploying: ${FULL_IMAGE_NAME} on ${DEST_PROJECT}" 
                 sh "oc project ${DEST_PROJECT}"
-                sh "chmod +x build.sh"
+                sh "ls -alrt && chmod +x build.sh"
                 sh "./build.sh ${IMAGE}" 
 
                 sh "oc rollout latest dc/frontend" 
