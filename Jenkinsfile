@@ -24,11 +24,11 @@ podTemplate(cloud:'openshift',
         container(JNLP) {
             stage('Tagging Image') {
                 sh  "echo ${SRC_PROJECT}"
-                 sh  "echo ${CONTAINER_IMAGE}"
-                 sh  "echo ${SRC_TAG}"
-                 sh  "echo ${DEST_PROJECT}"  
-                 sh  "echo ${DEST_TAG}"  
-                //sh "oc tag ${FULL_IMAGE_NAME} ${TAGGED_IMAGE}"
+                sh  "echo ${CONTAINER_IMAGE}"
+                sh  "echo ${SRC_TAG}"
+                sh  "echo ${DEST_PROJECT}"  
+                sh  "echo ${DEST_TAG}"  
+                openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: 'front3nd', destTag: 'prod', destinationAuthToken: '', destinationNamespace: 'pro', namespace: '', srcStream: 'front3nd', srcTag: 'latest', verbose: 'false'
             }
 
            /*  stage('Deploying Image') {
