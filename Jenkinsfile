@@ -1,11 +1,12 @@
 // project/image_name:tag
-def SRC_PROJECT  = {params.SRC_PROJECT} 
+
+/*def SRC_PROJECT  = {params.SRC_PROJECT} 
 def CONTAINER_IMAGE = {params.IMAGE} 
 def SRC_TAG      = {params.SRC_TAG} 
 
 def DEST_PROJECT  = {params.DEST_PROJECT} 
 def DEST_TAG      = {params.DEST_TAG} 
-
+*/
 
 //  def FULL_IMAGE_NAME = "${SRC_PROJECT}/${IMAGE}:${SRC_TAG}" 
 //def TAGGED_IMAGE   = "${DEST_PROJECT}/${IMAGE}:${DEST_TAG}" 
@@ -28,7 +29,16 @@ podTemplate(cloud:'openshift',
                 sh  "echo ${SRC_TAG}"
                 sh  "echo ${DEST_PROJECT}"  
                 sh  "echo ${DEST_TAG}"  
-                openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: 'front3nd', destTag: 'prod', destinationAuthToken: '', destinationNamespace: 'pro', namespace: '', srcStream: 'front3nd', srcTag: 'latest', verbose: 'false'
+                
+                openshiftTag alias: 'false', 
+                    destStream: 'front3nd', 
+                    destTag: 'prod', 
+                    destinationAuthToken: '', 
+                    destinationNamespace: 'pro', 
+                    namespace: '', 
+                    srcStream: 'front3nd', 
+                    srcTag: 'latest', 
+                    verbose: 'false'
             }
 
            /*  stage('Deploying Image') {
