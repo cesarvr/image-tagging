@@ -30,15 +30,7 @@ podTemplate(cloud:'openshift',
                 sh  "echo ${DEST_PROJECT}"  
                 sh  "echo ${DEST_TAG}"  
                 
-                openshiftTag alias: 'false', 
-                    destStream: 'front3nd', 
-                    destTag: 'prod', 
-                    destinationAuthToken: '', 
-                    destinationNamespace: 'pro', 
-                    namespace: '', 
-                    srcStream: 'front3nd', 
-                    srcTag: 'latest', 
-                    verbose: 'false'
+         
             }
 
            /*  stage('Deploying Image') {
