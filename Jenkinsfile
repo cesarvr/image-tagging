@@ -16,11 +16,11 @@ def JNLP = 'jnlp'
 
 podTemplate(cloud:'openshift', 
     label: BUILD_TAG, 
+    serviceAccount: 'jenkins'
     containers: [
         containerTemplate(
             name: JNLP, 
-            image: JENKINS_SLAVE_IMAGE,
-            serviceAccount: 'jenkins'
+            image: JENKINS_SLAVE_IMAGE  
         )
     ]
 ) {
