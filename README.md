@@ -1,3 +1,5 @@
+## Openshift Tag
+
 We can consider image tags as additional image metadata that provide additional information about a specific image. 
 
 A common example is when we use tags to inform about the version of  an image:
@@ -18,7 +20,7 @@ frontend:unstable
 frontend:nightly 
 ```
 
-In this example we are going to use Openshift ``oc tag`` command that give us a way to tag images and move *promote* images across projects. 
+In this example we are going to use **Openshift** ``oc tag`` command to **tag images** and move or **promote** images across projects. 
 
 Syntax: 
 
@@ -31,12 +33,17 @@ Example:
 ```sh
 oc tag ctest/frontend:latest uat/frontend:stable
 ```
-> This will tag and copy the latest ``frontend`` image version into a new project changing the tag to ``stable``.  
 
+We can verify this:
 
+```sh
+oc project uat # Change to project UAT 
 
+oc get is      # List all images on UAT
 
-
+# NAME       DOCKER REPO                                     TAGS      ...
+# frontend   docker-registry.default.svc:5000/uat/frontend   stable    ...
+```
 
 ### Jenkins DSL 
 
@@ -48,10 +55,12 @@ To run this pipeline script:
 oc new-build https://github.com/cesarvr/image-tagging.git --strategy=pipeline --name=build-img-tag
 ```
 
+> I created [this build script](https://github.com/cesarvr/image-tagging/blob/master/build.sh) to create a *generic* deployment.
+
 
 ### Params
 
-This pipeline scripts require this parameters to work:
+To work pipeline scripts require the following parameters:
 
 ```sh
 oc set env bc/build-img-tag IMAGE=frontend \
@@ -61,22 +70,28 @@ oc set env bc/build-img-tag IMAGE=frontend \
 		DEST_TAG=uat 
 ```
 
-``IMAGE`` represents the image name. 
-``SRC_PROJECT`` the project/namespace where this image is stored. 
-``SRC_TAG`` current tag of this image. 
-``DEST_PROJECT`` project we want to copy this image.
-``DEST_TAG`` the new tag we want to specify.
+- ``IMAGE`` represents the image name. 
+- ``SRC_PROJECT`` the project/namespace where this image is stored. 
+- ``SRC_TAG`` current tag of this image. 
+- ``DEST_PROJECT`` project we want to copy this image.
+- ``DEST_TAG`` the new tag we want to specify.
 
 
 ### Adding Roles 
 
 To promote this image, Jenkins service accounts need to be granted permissions to move images and create objects between namespaces.
 
+To provided those permissions we can use: 
+
 ```sh
 oc adm policy add-role-to-user admin system:serviceaccount:ctest:jenkins -n uat
 oc adm policy add-role-to-user admin system:serviceaccount:ctest:jenkins -n development
 ```
 
-> These permissions are local to Jenkins process. 
+> These will grant permissions to Jenkins to operate in the ``uat`` and ``development`` project. 
 
+
+The pipeline should look like this: 
+
+![](https://github.com/cesarvr/image-tagging/blob/master/img/tagging.gif?raw=true)
 
