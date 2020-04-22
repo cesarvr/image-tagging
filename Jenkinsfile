@@ -20,11 +20,6 @@ podTemplate(cloud:'openshift',
     node(BUILD_TAG) {
         container(JNLP) {
             stage('Tagging Image') {
-                echo "branch ->  ${env.BRANCH_NAME}"
-                echo "author ->  ${env.GIT_AUTHOR_NAME}"
-                echo "branch ->  ${env.GIT_BRANCH}"
-                echo "env -> ${env.getEnvironment()}"
-                sh "sleep 500000" 
                 sh "oc tag ${FULL_IMAGE_NAME} ${TAGGED_IMAGE}"
             }
 
