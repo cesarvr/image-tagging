@@ -23,7 +23,7 @@ podTemplate(cloud:'openshift',
                 echo "branch ->  ${env.BRANCH_NAME}"
                 echo "author ->  ${env.GIT_AUTHOR_NAME}"
                 echo "branch ->  ${env.GIT_BRANCH}"
-                echo "env -> ${env}"
+                echo "env -> ${env.getEnvironment()}"
                 sh "sleep 500000" 
                 sh "oc tag ${FULL_IMAGE_NAME} ${TAGGED_IMAGE}"
             }
