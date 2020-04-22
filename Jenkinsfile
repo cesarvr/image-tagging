@@ -24,6 +24,12 @@ podTemplate(cloud:'openshift',
                 sh "oc tag ${FULL_IMAGE_NAME} ${TAGGED_IMAGE}"
             }
 
+            /*
+            stage('Deploying Storage, DBs, Other Dependencies ') {
+            
+            }
+            */
+            
             stage('Deploying Image') {
                 echo " Deploying: ${FULL_IMAGE_NAME} on ${DEST_PROJECT}" 
                 sh "oc project ${DEST_PROJECT}"
